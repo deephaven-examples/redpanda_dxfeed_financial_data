@@ -5,6 +5,9 @@ import json
 import time
 import re
 
+# Sleep to ensure server has time to run
+time.sleep(3)
+
 producer = Producer({
     'bootstrap.servers': 'localhost:9092',
 })
@@ -31,7 +34,7 @@ my_subscriptions = []
 for i in range(len(types)):
     my_subscriptions.append(Subscriptions(types[i]))
 
-time.sleep(3)
+time.sleep(1)
 
 def clean_trades(input):
     output = {
