@@ -5,5 +5,3 @@ services:
     image: deephaven-examples/redpanda_dxfeed_financial_data-grpc-api:latest
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx4g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/app.d
-    depends_on:
-        - redpanda
