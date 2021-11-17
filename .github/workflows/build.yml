@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  schedule:
+    # Every day at 9AM EST
+    - cron:  '0 13 * * *'
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: .github/scripts/build.sh
+
+      - name: Test
+        run: .github/scripts/test.sh
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.15.0
+        id: notify-slack
+        if: ${{ failure() && github.ref == 'refs/heads/main' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEVREL }}
+        with:
+          payload: '{"repository": "${{ github.repository }}", "message": "${{ github.workflow }}/${{ github.job }} failure", "link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
