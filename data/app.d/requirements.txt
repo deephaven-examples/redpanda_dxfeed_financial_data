@@ -1,0 +1,2 @@
+dxfeed==0.5.3
+confluent_kafka==1.7.0
