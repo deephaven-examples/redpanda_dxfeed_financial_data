@@ -27,13 +27,6 @@ services:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
         - redpanda
-    deploy:
-      resources:
-        limits:
-          cpus: '4.0'
-          memory: 6000M
-        reservations:
-          memory: 1000M
     expose:
       - '8080'
     volumes:
