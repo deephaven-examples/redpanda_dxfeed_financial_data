@@ -23,7 +23,7 @@ jobs:
            docker-compose -f docker-compose.yml -p test-tables up -d
 
       - name: Assert Tables
-        uses: deephaven/action-assert-dh-tables-presen@v1
+        uses: deephaven/action-assert-dh-tables-present@v1
         with:
           table-names: trade,quote,candle,profile,summary,order,underlying,timeAndSale,series
           host: localhost
