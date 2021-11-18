@@ -26,7 +26,7 @@ jobs:
         uses: deephaven/action-assert-dh-tables-present@v1
         with:
           table-names: trade,quote,candle,profile,summary,order,underlying,timeAndSale,series
-          host: localhost
+          host: envoy
           max-retries: 10
 
 
