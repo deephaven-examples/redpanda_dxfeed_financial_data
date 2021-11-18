@@ -22,11 +22,11 @@ jobs:
            docker build --target dxFeed_publish -t redpanda_dxfeed_financial_data/dxfeed_publish:latest .
            docker-compose -f docker-compose.yml -p test-tables up -d
 
-      - name: Assert Tables
+      - name: Validate tables
         uses: deephaven/action-assert-dh-tables-present@v1
         with:
           table-names: trade,quote,candle,profile,summary,order,underlying,timeAndSale,series
-          host: envoy
+          host: localhost
           max-retries: 10
 
 
