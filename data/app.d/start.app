@@ -1,6 +1,6 @@
 type=script
 scriptType=python
 enabled=true
-id=Redpanda.dokcer
+id=Redpanda.dxfeed
 name=Kafka Producer and Tables
 file_0=tables.py

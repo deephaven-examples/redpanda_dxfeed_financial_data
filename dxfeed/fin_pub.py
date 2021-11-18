@@ -9,7 +9,7 @@ import re
 time.sleep(3)
 
 producer = Producer({
-    'bootstrap.servers': 'localhost:9092',
+    'bootstrap.servers': 'redpanda:29092',
 })
 
 endpoint = dx.Endpoint('demo.dxfeed.com:7300')
@@ -37,7 +37,7 @@ for i in range(len(types)):
 time.sleep(1)
 
 def clean_trades(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "Sequence": input[1],
     "Price": input[2],
@@ -53,10 +53,9 @@ def clean_trades(input):
     "IsETH": input[12],
     "Scope": input[13]
     }
-    return output
 
 def clean_quote(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "Sequence": input[1],
     "Time": input[2],
@@ -70,10 +69,9 @@ def clean_quote(input):
     "AskSize": input[10],
     "Scope": input[11]
     }
-    return output
 
 def clean_candle(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "EventFlags": input[1],
     "Index": input[2],
@@ -91,10 +89,9 @@ def clean_candle(input):
     "OpenInterest": input[14],
     "ImpVolatility": input[15]
     }
-    return output
 
 def clean_profile(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "Beta": input[1],
     "EPS": input[2],
@@ -115,10 +112,9 @@ def clean_profile(input):
     "TradingStatus": input[17],
     "ShortSaleRestriction": input[18]
     }
-    return output
 
 def clean_summary(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "DayId": input[1],
     "DayOpenPrice": input[2],
@@ -135,10 +131,9 @@ def clean_summary(input):
     "PrevDayClosePriceType": input[13],
     "Scope": input[14]
     }
-    return output
 
 def clean_order(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "EventFlags": input[1],
     "Index": input[2],
@@ -154,20 +149,18 @@ def clean_order(input):
     "MarketMaker": input[12].replace("\"",""),
     "SpreadSymbol": input[13].replace("\"","")
     }
-    return output
 
 def clean_underlying(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "Volatility": input[1],
     "FrontVolatility": input[2],
     "BackVolatility": input[3],
     "PutCallRatio": input[4]
     }
-    return output
 
 def clean_timeAndSale(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "EventFlags": input[1],
     "Index": input[2],
@@ -189,10 +182,9 @@ def clean_timeAndSale(input):
     "IsSpreadLeg": input[18],
     "Scope": input[19]
     }
-    return output
 
 def clean_series(input):
-    output = {
+    return {
     "Symbol": input[0].replace("\"",""),
     "EventFlags": input[1],
     "Index": input[2],
@@ -205,34 +197,27 @@ def clean_series(input):
     "Dividend": input[9],
     "Interest": input[10]
     }
-    return output
 
 while True:
     for obj in my_subscriptions:
-        data = obj.handler.get_dataframe().tail(1).to_json(orient ='values')
+        data = obj.handler.get_dataframe().tail(1).to_json(orient ='values').replace("[","").replace("]","").split(",")
         if(obj.topic_name == 'Trade'):
-            formatted = clean_trades(data.replace("[","").replace("]","").split(","))
+            formatted = clean_trades(data)
         if(obj.topic_name == 'Quote'):
-            formatted = clean_quote(data.replace("[","").replace("]","").split(","))
+            formatted = clean_quote(data)
         if(obj.topic_name == 'Candle'):
-            formatted = clean_candle(data.replace("[","").replace("]","").split(","))
+            formatted = clean_candle(data)
         if(obj.topic_name == 'Profile'):
-            formatted = clean_profile(data.replace("[","").replace("]","").split(","))
+            formatted = clean_profile(data)
         if(obj.topic_name == 'Summary'):
-            formatted = clean_summary(data.replace("[","").replace("]","").split(","))
+            formatted = clean_summary(data)
         if(obj.topic_name == 'Order'):
-            formatted = clean_order(data.replace("[","").replace("]","").split(","))
+            formatted = clean_order(data)
         if(obj.topic_name == 'Underlying'):
-            formatted = clean_underlying(data.replace("[","").replace("]","").split(","))
+            formatted = clean_underlying(data)
         if(obj.topic_name == 'TimeAndSale'):
-            formatted = clean_timeAndSale(data.replace("[","").replace("]","").split(","))
+            formatted = clean_timeAndSale(data)
         if(obj.topic_name == 'Series'):
-            formatted = clean_series(data.replace("[","").replace("]","").split(","))
+            formatted = clean_series(data)
         producer.produce(topic=obj.topic_name, key=None, value=json.dumps(formatted))
         producer.flush()
-
-
-#for obj in my_subscriptions:
-#    print(obj.sub.close_subscription())
-
-#endpoint.close_connection()

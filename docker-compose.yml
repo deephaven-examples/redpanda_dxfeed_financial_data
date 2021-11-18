@@ -22,7 +22,7 @@ services:
       - 29092:29092
 
   grpc-api:
-    image: ghcr.io/deephaven/grpc-api:${VERSION:-latest}
+    image: redpanda_dxfeed_financial_data/dx-grpc-api:latest
     environment:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
@@ -38,16 +38,19 @@ services:
       - '8080'
     volumes:
       - ./data:/data
+      - ./data/notebooks:/data/notebooks
       - api-cache:/cache
 
   web:
-    image: ghcr.io/deephaven/web:${VERSION:-latest}
+    image: redpanda_dxfeed_financial_data/dx-web:latest
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4g
     expose:
       - '80'
     volumes:
       - ./data:/data
+      - ./data/layouts:/data/layouts
+      - ./data/notebooks:/data/notebooks
       - web-tmp:/tmp
 
   grpc-proxy:
@@ -67,6 +70,15 @@ services:
       - grpc-api
     ports:
       - "${PORT:-10000}:10000"
+
+  dxfeed:
+    image: redpanda_dxfeed_financial_data/dxfeed_publish:latest
+    depends_on:
+      - web
+      - grpc-proxy
+      - grpc-api
+      - envoy
+      - redpanda
 
 volumes:
     web-tmp:

@@ -17,7 +17,7 @@ trades = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Trade', ke
     ('RawFlags',  dht.int_),
     ('IsETH',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 quotes = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Quote', key=ck.IGNORE, value=ck.json([
     ('Symbol', dht.string),
@@ -32,7 +32,7 @@ quotes = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Quote', ke
     ('AskPrice',    dht.double),
     ('AskSize',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 
 candle = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Candle', key=ck.IGNORE, value=ck.json([
@@ -52,7 +52,7 @@ candle = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Candle', k
     ('AskVolume',    dht.int_),
     ('OpenInterest',    dht.string),
     ('ImpVolatility',    dht.string)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 
 
@@ -76,7 +76,7 @@ profile = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Profile',
     ('StatusReason',    dht.string),
     ('TradingStatus',    dht.int_),
     ('ShortSaleRestriction',    dht.int_)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 
 summary = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Summary', key=ck.IGNORE, value=ck.json([
@@ -95,7 +95,7 @@ summary = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Summary',
     ('DayClosePriceType',    dht.int_),
     ('PrevDayClosePriceType',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 order = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Order', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
@@ -112,7 +112,7 @@ order = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Order', key
     ('Source',    dht.string),
     ('MarketMaker',    dht.string),
     ('SpreadSymbol',    dht.string)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 underlying = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Underlying', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
@@ -120,7 +120,7 @@ underlying = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Underl
     ('FrontVolatility',    dht.double),
     ('BackVolatility',    dht.double),
     ('PutCallRatio',    dht.double)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 timeAndSale = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
@@ -143,7 +143,7 @@ timeAndSale = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'TimeA
     ('TradeThroughExempt',    dht.int_),
     ('IsSpreadLeg',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
 
 
 series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', key=ck.IGNORE, value=ck.json([
@@ -158,4 +158,4 @@ series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', k
     ('ForwardPrice',    dht.double),
     ('Dividend',    dht.double),
     ('Interest',    dht.double)
-    ]),table_type = 'append')
+    ]),table_type = 'append').sortDescending("KafkaTimestamp")
