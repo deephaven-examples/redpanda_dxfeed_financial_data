@@ -25,7 +25,7 @@ jobs:
       - name: Validate tables
         uses: deephaven/action-assert-dh-tables-present@v1
         with:
-          table-names: trade,quote,candle,profile,summary,order,underlying,timeAndSale,series
+          table-names: trades,quotes,candle,profile,summary,order,underlying,timeAndSale,series
           host: localhost
           max-retries: 10
 
