@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  schedule:
+    # Every day at 9AM EST
+    - cron:  '0 13 * * *'
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+           docker build --target dx-grpc-api -t redpanda_dxfeed_financial_data/dx-grpc-api .
+           docker build --target dx-web -t redpanda_dxfeed_financial_data/dx-web:latest .
+           docker build --target dxFeed_publish -t redpanda_dxfeed_financial_data/dxfeed_publish:latest .
+           docker-compose -f docker-compose.yml -p test-tables up -d
+
+      - name: Validate tables
+        uses: deephaven/action-assert-dh-tables-present@v1
+        with:
+          table-names: trades,quotes,candle,profile,summary,order,underlying,timeAndSale,series
+          host: localhost
+          max-retries: 10
+
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.15.0
+        id: notify-slack
+        if: ${{ failure() && github.ref == 'refs/heads/main' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEVREL }}
+        with:
+          payload: '{"repository": "${{ github.repository }}", "message": "${{ github.workflow }}/${{ github.job }} failure", "link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
