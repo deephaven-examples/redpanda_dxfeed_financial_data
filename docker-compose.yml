@@ -22,7 +22,7 @@ services:
       - 29092:29092
 
   grpc-api:
-    image: redpanda_dxfeed_financial_data/dx-grpc-api:latest
+    image: redpanda-dxfeed-financial-data/dx-grpc-api:latest
     environment:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
@@ -35,7 +35,7 @@ services:
       - api-cache:/cache
 
   web:
-    image: redpanda_dxfeed_financial_data/dx-web:latest
+    image: redpanda-dxfeed-financial-data/dx-web:latest
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4g
     expose:
@@ -65,7 +65,7 @@ services:
       - "${PORT:-10000}:10000"
 
   dxfeed:
-    image: redpanda_dxfeed_financial_data/dxfeed_publish:latest
+    image: redpanda-dxfeed-financial-data/dxfeed-publish:latest
     depends_on:
       - web
       - grpc-proxy
