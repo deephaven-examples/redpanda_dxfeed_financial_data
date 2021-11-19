@@ -54,8 +54,8 @@ symbols = ['SPY', 'AAPL', 'IBM', 'MSFT', 'DIA', 'XLF', 'GOOG', 'AMZN', 'TSLA', '
 To launch the latest release, you can clone the repository via:
 
 ```shell
-git clone https://github.com/deephaven-examples/redpanda_dxfeed_financial_data.git
-cd redpanda_dxfeed_financial_data
+git clone https://github.com/deephaven-examples/redpanda-dxfeed-financial-data.git
+cd redpanda-dxfeed-financial-data
 ```
 
 A start script will install the needed python modules. It will also start the Deephaven IDE, Redpanda images and execute the python application to produce the stream from dxFeed.
