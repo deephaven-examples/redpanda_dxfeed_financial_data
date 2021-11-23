@@ -38,7 +38,7 @@ quotes = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Quote', ke
 candle = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Candle', key=ck.IGNORE, value=ck.json([
     ('Symbol', dht.string),
     ('EventFlags',   dht.int_),
-    ('Index',  dht.int_),
+    ('Index',  dht.int64),
     ('Time',   dht.datetime),
     ('Sequence', dht.int_),
     ('Count',   dht.int_),
@@ -100,7 +100,7 @@ summary = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Summary',
 order = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Order', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
-    ('Index',    dht.int_),
+    ('Index',    dht.int64),
     ('Time',    dht.datetime),
     ('Sequence',    dht.int_),
     ('Price',    dht.double),
@@ -125,7 +125,7 @@ underlying = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Underl
 timeAndSale = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
-    ('Index',    dht.int_),
+    ('Index',    dht.int64),
     ('Time',    dht.datetime),
     ('ExchangeCode',    dht.string),
     ('Price',    dht.double),
@@ -149,7 +149,7 @@ timeAndSale = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'TimeA
 series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', key=ck.IGNORE, value=ck.json([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
-    ('Index',    dht.int_),
+    ('Index',    dht.int64),
     ('Time',    dht.datetime),
     ('Sequence',    dht.int_),
     ('Expiration',    dht.int_),
