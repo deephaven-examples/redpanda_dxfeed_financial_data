@@ -62,7 +62,7 @@ services:
       - grpc-proxy
       - grpc-api
     ports:
-      - "${PORT:-10100}:10000"
+      - "${PORT:-10000}:10000"
 
   dxfeed-trade:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
