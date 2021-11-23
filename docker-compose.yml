@@ -64,14 +64,38 @@ services:
     ports:
       - "${PORT:-10000}:10000"
 
-  dxfeed:
-    image: redpanda-dxfeed-financial-data/dxfeed-publish:latest
+  dxfeed-trade:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
     depends_on:
       - web
       - grpc-proxy
       - grpc-api
       - envoy
       - redpanda
+
+  dxfeed-quote:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-quote:latest
+
+  dxfeed-candle:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-candle:latest
+
+  dxfeed-profile:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-profile:latest
+
+  dxfeed-summary:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-summary:latest
+
+  dxfeed-order:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-order:latest
+
+  dxfeed-underlying:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-underlying:latest
+
+  dxfeed-timeandsale:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-timeandsale:latest
+
+  dxfeed-series:
+    image: redpanda-dxfeed-financial-data/dxfeed-publish-series:latest
 
 volumes:
     web-tmp:

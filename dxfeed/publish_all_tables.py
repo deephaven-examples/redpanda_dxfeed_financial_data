@@ -58,15 +58,15 @@ def clean_trades(input):
 
 def clean_quote(input):
     data = {
-        "Symbol": input[0],#.replace("\"",""),
+        "Symbol": input[0],
         "Sequence": input[1],
         "Time": input[2],
         "BidTime": input[3],
-        "BidExchangeCode": input[4],#.replace("\"",""),
+        "BidExchangeCode": input[4],
         "BidPrice": input[5],
         "BidSize": input[6],
         "AskTime": input[7],
-        "AskExchangeCode": input[8],#.replace("\"",""),
+        "AskExchangeCode": input[8],
         "AskPrice": input[9],
         "AskSize": input[10],
         "Scope": input[11]
@@ -76,7 +76,7 @@ def clean_quote(input):
 
 def clean_candle(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
         "Time": input[3],
@@ -98,7 +98,7 @@ def clean_candle(input):
 
 def clean_profile(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "Beta": input[1],
         "EPS": input[2],
         "DivFreq": input[3],
@@ -112,9 +112,9 @@ def clean_profile(input):
         "LowLimitPrice": input[11],
         "HaltStartTime": input[12],
         "HaltEndTime": input[13],
-        "Description": input[14].replace("\"",""),
+        "Description": input[14],
         "RawFlags": input[15],
-        "StatusReason": input[16].replace("\"",""),
+        "StatusReason": input[16],
         "TradingStatus": input[17],
         "ShortSaleRestriction": input[18]
     }
@@ -123,7 +123,7 @@ def clean_profile(input):
 
 def clean_summary(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "DayId": input[1],
         "DayOpenPrice": input[2],
         "DayHighPrice": input[3],
@@ -134,7 +134,7 @@ def clean_summary(input):
         "PrevDayVolume": input[8],
         "OpenInterest": input[9],
         "RawFlags": input[10],
-        "ExchangeCode": input[11].replace("\"",""),
+        "ExchangeCode": input[11],
         "DayClosePriceType": input[12],
         "PrevDayClosePriceType": input[13],
         "Scope": input[14]
@@ -144,7 +144,7 @@ def clean_summary(input):
 
 def clean_order(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
         "Time": input[3],
@@ -154,17 +154,17 @@ def clean_order(input):
         "Count": input[7],
         "Scope": input[8],
         "Side": input[9],
-        "ExchangeCode": input[10].replace("\"",""),
-        "Source": input[11].replace("\"",""),
-        "MarketMaker": input[12].replace("\"",""),
-        "SpreadSymbol": input[13].replace("\"","")
+        "ExchangeCode": input[10],
+        "Source": input[11],
+        "MarketMaker": input[12],
+        "SpreadSymbol": input[13]
     }
     producer.produce(topic= 'Order', key=None, value=json.dumps(data))
     producer.flush()
 
 def clean_underlying(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "Volatility": input[1],
         "FrontVolatility": input[2],
         "BackVolatility": input[3],
@@ -175,19 +175,19 @@ def clean_underlying(input):
 
 def clean_timeAndSale(input):
     data = {
-        "Symbol": input[0].replace("\"",""),
+        "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
         "Time": input[3],
-        "ExchangeCode": input[4].replace("\"",""),
+        "ExchangeCode": input[4],
         "Price": input[5],
         "Size": input[6],
         "BidPrice": input[7],
         "AskPrice": input[8],
-        "ExchangeSaleConditions": input[9].replace("\"",""),
+        "ExchangeSaleConditions": input[9],
         "RawFlags": input[10],
-        "Buyer": input[11].replace("\"",""),
-        "Seller": input[12].replace("\"",""),
+        "Buyer": input[11],
+        "Seller": input[12],
         "Side": input[13],
         "Type": input[14],
         "IsValidTick": input[15],
@@ -201,7 +201,7 @@ def clean_timeAndSale(input):
 
 def clean_series(input):
     data = {
-        "Symbol": input[0],#.replace("\"",""),
+        "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
         "Time": input[3],
@@ -222,20 +222,29 @@ while True:
         json_dictionary = json.loads(data)
         for key in json_dictionary:
             if(obj.topic_name == 'Trade'):
+                #pass
                 formatted = clean_trades(key)
             if(obj.topic_name == 'Quote'):
+                #pass
                 formatted = clean_quote(key)
             if(obj.topic_name == 'Candle'):
-                formatted = clean_candle(key)
+                pass
+                #formatted = clean_candle(key)
             if(obj.topic_name == 'Profile'):
-                formatted = clean_profile(key)
+                pass
+                #formatted = clean_profile(key)
             if(obj.topic_name == 'Summary'):
-                formatted = clean_summary(key)
+                pass
+                #formatted = clean_summary(key)
             if(obj.topic_name == 'Order'):
-                formatted = clean_order(key)
+                pass
+                #formatted = clean_order(key)
             if(obj.topic_name == 'Underlying'):
-                formatted = clean_underlying(key)
+                pass
+                #formatted = clean_underlying(key)
             if(obj.topic_name == 'TimeAndSale'):
-                formatted = clean_timeAndSale(key)
+                pass
+                #formatted = clean_timeAndSale(key)
             if(obj.topic_name == 'Series'):
-                formatted = clean_series(key)
+                pass
+                #formatted = clean_series(key)
