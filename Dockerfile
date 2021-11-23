@@ -5,11 +5,11 @@ FROM ghcr.io/deephaven/web:0.6.0 AS dx-web
 COPY data/layouts /data/layouts
 RUN chown www-data:www-data /data/layouts
 
-#FROM python:3.8 AS dxfeed-publish-all
-#COPY dxfeed/requirements.txt .
-#RUN pip install -r requirements.txt
-#COPY dxfeed/publish_all_tables.py .
-#CMD [ "python3", "publish_all_tables.py"]
+FROM python:3.8 AS dxfeed-publish-all
+COPY dxfeed/requirements.txt .
+RUN pip install -r requirements.txt
+COPY dxfeed/publish_all_tables.py .
+CMD [ "python3", "publish_all_tables.py"]
 
 FROM python:3.8 AS dxfeed-publish-trade
 COPY dxfeed/requirements.txt .
@@ -53,7 +53,7 @@ RUN pip install -r requirements.txt
 COPY dxfeed/publish_underlying_table.py .
 CMD [ "python3", "publish_underlying_table.py"]
 
-FROM python:3.8 AS dxfeed-publish-timeAndSale
+FROM python:3.8 AS dxfeed-publish-timeandsale
 COPY dxfeed/requirements.txt .
 RUN pip install -r requirements.txt
 COPY dxfeed/publish_timeAndSale_table.py .
