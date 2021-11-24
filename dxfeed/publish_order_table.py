@@ -41,7 +41,7 @@ def clean_order(input):
         "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
-        "Time": input[3],
+        "Timestamp": input[3],
         "Sequence": input[4],
         "Price": input[5],
         "Size": input[6],

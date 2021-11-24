@@ -48,7 +48,7 @@ def clean_trades(input):
         "DayVolume": input[7],
         "DayTurnover": input[8],
         "Direction": input[9],
-        "Time": input[10],
+        "Timestamp": input[10],
         "RawFlags": input[11],
         "IsETH": input[12],
         "Scope": input[13]

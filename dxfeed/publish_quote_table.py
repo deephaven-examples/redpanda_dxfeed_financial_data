@@ -40,7 +40,7 @@ def clean_quote(input):
     data = {
         "Symbol": input[0],
         "Sequence": input[1],
-        "Time": input[2],
+        "Timestamp": input[2],
         "BidTime": input[3],
         "BidExchangeCode": input[4],
         "BidPrice": input[5],

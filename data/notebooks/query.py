@@ -26,3 +26,7 @@ withEmas = trades.update(\
     "EmaMin10 = ema_price_10min.update(Time, Price, Symbol)",\
     "EmaMin60 = ema_price_60min.update(Time, Price, Symbol)",\
     "EmaTick100 = ema_price_100ticks.update(Time, Price, Symbol)")
+
+from deephaven import Plot
+trade_plot = Plot.oneClick(trades, "Symbol")
+plot_trades = Plot.plot("Symbol", trade_plot, "Timestamp", "Price").show()

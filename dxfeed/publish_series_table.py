@@ -41,7 +41,7 @@ def clean_series(input):
         "Symbol": input[0],
         "EventFlags": input[1],
         "Index": input[2],
-        "Time": input[3],
+        "Timestamp": input[3],
         "Sequence": input[4],
         "Expiration": input[5],
         "Volatility": input[6],

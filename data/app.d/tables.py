@@ -13,7 +13,7 @@ trades = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Trade', ke
     ('DayVolume',    dht.int_),
     ('DayTurnover',  dht.int_),
     ('Direction',    dht.int_),
-    ('Time',    dht.datetime),
+    ('Timestamp',    dht.datetime),
     ('RawFlags',  dht.int_),
     ('IsETH',    dht.int_),
     ('Scope',    dht.int_)
@@ -22,7 +22,7 @@ trades = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Trade', ke
 quotes = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Quote', key=ck.IGNORE, value=ck.json([
     ('Symbol', dht.string),
     ('Sequence',   dht.int_),
-    ('Time',  dht.datetime),
+    ('Timestamp',  dht.datetime),
     ('BidTime',   dht.datetime),
     ('BidExchangeCode', dht.string),
     ('BidPrice',   dht.double),
@@ -39,7 +39,7 @@ candle = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Candle', k
     ('Symbol', dht.string),
     ('EventFlags',   dht.int_),
     ('Index',  dht.int64),
-    ('Time',   dht.datetime),
+    ('Timestamp',   dht.datetime),
     ('Sequence', dht.int_),
     ('Count',   dht.int_),
     ('Open',  dht.double),
@@ -101,7 +101,7 @@ order = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Order', key
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Time',    dht.datetime),
+    ('Timestamp',    dht.datetime),
     ('Sequence',    dht.int_),
     ('Price',    dht.double),
     ('Size',    dht.int_),
@@ -126,7 +126,7 @@ timeAndSale = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'TimeA
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Time',    dht.datetime),
+    ('Timestamp',    dht.datetime),
     ('ExchangeCode',    dht.string),
     ('Price',    dht.double),
     ('Size',    dht.double),
@@ -150,7 +150,7 @@ series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', k
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Time',    dht.datetime),
+    ('Timestamp',    dht.datetime),
     ('Sequence',    dht.int_),
     ('Expiration',    dht.int_),
     ('Volatility',    dht.double),
@@ -159,3 +159,11 @@ series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', k
     ('Dividend',    dht.double),
     ('Interest',    dht.double)
     ]),table_type = 'append').sortDescending("KafkaOffset")
+
+
+symbols = None
+
+symbols = trades.selectDistinct("Symbol")
+
+from deephaven import Plot
+trade_plot = Plot.oneClick(trades, "Symbol")
