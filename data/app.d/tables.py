@@ -161,9 +161,11 @@ series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', k
     ]),table_type = 'append').sortDescending("KafkaOffset")
 
 
-symbols = None
+from deephaven.TableTools import newTable, stringCol
 
-symbols = trades.selectDistinct("Symbol")
+symbols = newTable(
+   stringCol("Symbol", 'SPY', 'AAPL', 'IBM', 'MSFT', 'DIA', 'XLF', 'GOOG', 'AMZN', 'TSLA', 'SPX', 'HPQ', 'CSCO', 'INTC', 'AXP')
+)
 
 from deephaven import Plot
 trade_plot = Plot.oneClick(trades, "Symbol")
