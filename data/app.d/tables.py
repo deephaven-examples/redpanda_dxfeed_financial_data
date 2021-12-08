@@ -1,7 +1,6 @@
 from deephaven import ConsumeKafka as ck
 from deephaven import Types as dht
 
-
 trades = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Trade', key=ck.IGNORE, value=ck.json([
     ('Symbol', dht.string),
     ('Sequence',   dht.int_),
@@ -160,12 +159,8 @@ series = ck.consumeToTable({'bootstrap.servers': 'redpanda:29092'} , 'Series', k
     ('Interest',    dht.double)
     ]),table_type = 'append').sortDescending("KafkaOffset")
 
-
 from deephaven.TableTools import newTable, stringCol
 
 symbols = newTable(
    stringCol("Symbol", 'SPY', 'AAPL', 'IBM', 'MSFT', 'DIA', 'XLF', 'GOOG', 'AMZN', 'TSLA', 'SPX', 'HPQ', 'CSCO', 'INTC', 'AXP')
 )
-
-from deephaven import Plot
-trade_plot = Plot.oneClick(trades, "Symbol")
