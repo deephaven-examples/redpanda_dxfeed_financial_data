@@ -1,10 +1,14 @@
-from deephaven import Aggregation as agg, combo_agg
+from deephaven import Aggregation as agg, as_list
 
-aggs = quotes.aggBy(combo_agg([\
+agg_list = as_list([
     agg.AggMin("Ask_Min=AskPrice"),\
     agg.AggAvg("AskSize_Avg=AskSize"),\
     agg.AggMax("Bid_Max=BidPrice"), \
-    agg.AggAvg("BidSize_Avg=BidSize")]), \
+    agg.AggAvg("BidSize_Avg=BidSize")
+])
+
+
+aggs = quotes.aggBy(agg_list,\
     "Symbol", "BidExchangeCode", "BidTime", "AskTime")
 
 relatedQuotes = trades.aj(quotes, "Symbol, Timestamp = BidTime", "BidTime, BidPrice, BidSize")

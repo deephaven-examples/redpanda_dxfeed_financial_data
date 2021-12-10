@@ -71,11 +71,12 @@ services:
   dxfeed-trade:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
     depends_on:
-      - web
-      - grpc-proxy
-      - grpc-api
-      - envoy
-      - redpanda
+      grpc-api:
+        condition: service_healthy
+      grpc-proxy:
+        condition: service_started
+      web:
+        condition: service_started
 
   dxfeed-quote:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-quote:latest
