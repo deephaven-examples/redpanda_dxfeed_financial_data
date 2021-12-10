@@ -1,7 +1,7 @@
-FROM ghcr.io/deephaven/grpc-api AS dx-grpc-api
+FROM ghcr.io/deephaven/grpc-api:latest AS dx-grpc-api
 COPY data/app.d /app.d
 
-FROM ghcr.io/deephaven/web:0.6.0 AS dx-web
+FROM ghcr.io/deephaven/web:latest AS dx-web
 COPY data/layouts /data/layouts
 RUN chown www-data:www-data /data/layouts
 

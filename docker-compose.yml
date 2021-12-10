@@ -51,16 +51,20 @@ services:
     environment:
       - BACKEND_ADDR=grpc-api:8080
     depends_on:
-      - grpc-api
+      grpc-api:
+        condition: service_healthy
     expose:
       - '8080'
 
   envoy:
     image: ghcr.io/deephaven/envoy:${VERSION:-latest}
     depends_on:
-      - web
-      - grpc-proxy
-      - grpc-api
+      grpc-api:
+        condition: service_healthy
+      grpc-proxy:
+        condition: service_started
+      web:
+        condition: service_started
     ports:
       - "${PORT:-10000}:10000"
 
