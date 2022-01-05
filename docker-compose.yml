@@ -21,8 +21,8 @@ services:
       - 9092:9092
       - 29092:29092
 
-  grpc-api:
-    image: redpanda-dxfeed-financial-data/dx-grpc-api:latest
+  server:
+    image: redpanda-dxfeed-financial-data/dx-server:latest
     environment:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
@@ -49,9 +49,9 @@ services:
   grpc-proxy:
     image: ghcr.io/deephaven/grpc-proxy:0.7.0
     environment:
-      - BACKEND_ADDR=grpc-api:8080
+      - BACKEND_ADDR=server:8080
     depends_on:
-      grpc-api:
+      server:
         condition: service_healthy
     expose:
       - '8080'
@@ -59,7 +59,7 @@ services:
   envoy:
     image: ghcr.io/deephaven/envoy:0.7.0
     depends_on:
-      grpc-api:
+      server:
         condition: service_healthy
       grpc-proxy:
         condition: service_started
@@ -71,7 +71,7 @@ services:
   dxfeed-trade:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
     depends_on:
-      grpc-api:
+      server:
         condition: service_healthy
       grpc-proxy:
         condition: service_started

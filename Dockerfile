@@ -1,4 +1,4 @@
-FROM ghcr.io/deephaven/grpc-api:0.7.0 AS dx-grpc-api
+FROM ghcr.io/deephaven/server:0.7.0 AS dx-server
 COPY data/app.d /app.d
 HEALTHCHECK --interval=3s --retries=3 --timeout=11s CMD /bin/grpc_health_probe -addr=localhost:8080 -connect-timeout=10s || exit 1
 
