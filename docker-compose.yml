@@ -47,7 +47,7 @@ services:
       - web-tmp:/tmp
 
   grpc-proxy:
-    image: ghcr.io/deephaven/grpc-proxy:0.7.0
+    image: ghcr.io/deephaven/grpc-proxy:latest
     environment:
       - BACKEND_ADDR=server:8080
     depends_on:
@@ -57,7 +57,7 @@ services:
       - '8080'
 
   envoy:
-    image: ghcr.io/deephaven/envoy:0.7.0
+    image: ghcr.io/deephaven/envoy:latest
     depends_on:
       server:
         condition: service_healthy
