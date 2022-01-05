@@ -1,4 +1,4 @@
-docker build --target dx-grpc-api -t redpanda-dxfeed-financial-data/dx-grpc-api .
+docker build --target dx-server -t redpanda-dxfeed-financial-data/dx-server .
 docker build --target dx-web -t redpanda-dxfeed-financial-data/dx-web:latest .
 #docker build --target dxfeed-publish-all -t redpanda-dxfeed-financial-data/dxfeed-publish-all:latest .
 docker build --target dxfeed-publish-trade -t redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest .
