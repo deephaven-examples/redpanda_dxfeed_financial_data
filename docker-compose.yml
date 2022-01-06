@@ -22,7 +22,7 @@ services:
       - 29092:29092
 
   server:
-    image: redpanda-dxfeed-financial-data/dx-server:${VERSION:-edge}
+    image: redpanda-dxfeed-financial-data/dx-server
     environment:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
@@ -35,7 +35,7 @@ services:
       - api-cache:/cache
 
   web:
-    image: redpanda-dxfeed-financial-data/dx-web:${VERSION:-edge}
+    image: redpanda-dxfeed-financial-data/dx-web
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4g
     expose:
