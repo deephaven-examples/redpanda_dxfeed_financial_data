@@ -22,7 +22,7 @@ services:
       - 29092:29092
 
   server:
-    image: redpanda-dxfeed-financial-data/dx-server:latest
+    image: redpanda-dxfeed-financial-data/dx-server:${VERSION:-edge}
     environment:
       JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
     depends_on:
@@ -35,7 +35,7 @@ services:
       - api-cache:/cache
 
   web:
-    image: redpanda-dxfeed-financial-data/dx-web:latest
+    image: redpanda-dxfeed-financial-data/dx-web:${VERSION:-edge}
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4g
     expose:
@@ -47,7 +47,7 @@ services:
       - web-tmp:/tmp
 
   grpc-proxy:
-    image: ghcr.io/deephaven/grpc-proxy:latest
+    image: ghcr.io/deephaven/grpc-proxy:${VERSION:-edge}
     environment:
       - BACKEND_ADDR=server:8080
     depends_on:
@@ -57,7 +57,7 @@ services:
       - '8080'
 
   envoy:
-    image: ghcr.io/deephaven/envoy:latest
+    image: ghcr.io/deephaven/envoy:${VERSION:-edge}
     depends_on:
       server:
         condition: service_healthy
