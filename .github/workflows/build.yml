@@ -17,15 +17,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Build
         run: sh redpanda_start.sh -d
-
       - name: Validate tables
         uses: deephaven/action-assert-dh-tables-present@v1
         with:
           table-names: trades,quotes,candle,profile,summary,order,underlying,timeAndSale,series
           host: localhost
           max-retries: 10
-
-
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.15.0
         id: notify-slack
