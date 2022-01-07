@@ -50,33 +50,16 @@ services:
     image: ghcr.io/deephaven/grpc-proxy:${VERSION:-edge}
     environment:
       - BACKEND_ADDR=server:8080
-    depends_on:
-      server:
-        condition: service_healthy
     expose:
       - '8080'
 
   envoy:
     image: ghcr.io/deephaven/envoy:${VERSION:-edge}
-    depends_on:
-      server:
-        condition: service_healthy
-      grpc-proxy:
-        condition: service_started
-      web:
-        condition: service_started
     ports:
       - "${PORT:-10000}:10000"
 
   dxfeed-trade:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
-    depends_on:
-      server:
-        condition: service_healthy
-      grpc-proxy:
-        condition: service_started
-      web:
-        condition: service_started
 
   dxfeed-quote:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-quote:latest
