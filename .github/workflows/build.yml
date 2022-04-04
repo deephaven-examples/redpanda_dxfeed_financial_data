@@ -3,7 +3,7 @@ name: Build
 on:
   schedule:
     # Every day at 9AM EST
-    - cron:  '0 13 * * *'
+    #- cron:  '0 13 * * *'
   pull_request:
     branches: [ main ]
   push:
