@@ -163,6 +163,6 @@ series = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Series', key_spec
 from deephaven import new_table
 from deephaven.column import string_col
 
-symbols = new_table(
+symbols = new_table([
    string_col("Symbol", ['SPY', 'AAPL', 'IBM', 'MSFT', 'DIA', 'XLF', 'GOOG', 'AMZN', 'TSLA', 'SPX', 'HPQ', 'CSCO', 'INTC', 'AXP'])
-)
+   ])
