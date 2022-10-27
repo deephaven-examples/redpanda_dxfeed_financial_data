@@ -21,42 +21,16 @@ services:
       - 9092:9092
       - 29092:29092
 
-  server:
+  deephaven:
     image: redpanda-dxfeed-financial-data/dx-server
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx6g -Ddeephaven.console.type=python -Ddeephaven.application.dir=/data/app.d
+      - JAVA_OPTS=-Xmx12g -Ddeephaven.application.dir=/data/app.d
     depends_on:
-        - redpanda
-    expose:
-      - '8080'
-    volumes:
-      - ./data:/data
-      - ./data/notebooks:/data/notebooks
-      - api-cache:/cache
-
-  web:
-    image: redpanda-dxfeed-financial-data/dx-web
-    environment:
-      JAVA_TOOL_OPTIONS: -Xmx4g
-    expose:
-      - '80'
-    volumes:
-      - ./data:/data
-      - ./data/layouts:/data/layouts
-      - ./data/notebooks:/data/notebooks
-      - web-tmp:/tmp
-
-  grpc-proxy:
-    image: ghcr.io/deephaven/grpc-proxy:${VERSION:-edge}
-    environment:
-      - BACKEND_ADDR=server:8080
-    expose:
-      - '8080'
-
-  envoy:
-    image: ghcr.io/deephaven/envoy:${VERSION:-edge}
+       - redpanda
     ports:
-      - "${PORT:-10000}:10000"
+      - "${DEEPHAVEN_PORT:-10000}:10000"
+    volumes:
+      - ./data:/data
 
   dxfeed-trade:
     image: redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest
