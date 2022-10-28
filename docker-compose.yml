@@ -24,7 +24,7 @@ services:
   deephaven:
     image: redpanda-dxfeed-financial-data/dx-server
     environment:
-      - JAVA_OPTS=-Xmx12g -Ddeephaven.application.dir=/data/app.d
+      - START_OPTS=-Xmx12g -Ddeephaven.application.dir=/data/app.d
     depends_on:
        - redpanda
     ports:
