@@ -1,7 +1,6 @@
 FROM ghcr.io/deephaven/server:${VERSION:-latest} AS dx-server
 COPY data/app.d /app.d
 COPY data/layouts /data/layouts
-HEALTHCHECK --interval=3s --retries=3 --timeout=11s CMD /bin/grpc_health_probe -addr=localhost:8080 -connect-timeout=10s || exit 1
 
 FROM python:3.8 AS dxfeed-publish-all
 COPY dxfeed/requirements.txt .
