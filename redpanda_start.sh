@@ -1,4 +1,4 @@
-docker build --target dx-server -t redpanda-dxfeed-financial-data/dx-server .
+docker build --target dx-server -t redpanda-dxfeed-financial-data/dx-server:latest .
 docker build --target dx-web -t redpanda-dxfeed-financial-data/dx-web:latest .
 #docker build --target dxfeed-publish-all -t redpanda-dxfeed-financial-data/dxfeed-publish-all:latest .
 docker build --target dxfeed-publish-trade -t redpanda-dxfeed-financial-data/dxfeed-publish-trade:latest .
@@ -10,4 +10,4 @@ docker build --target dxfeed-publish-order -t redpanda-dxfeed-financial-data/dxf
 docker build --target dxfeed-publish-underlying -t redpanda-dxfeed-financial-data/dxfeed-publish-underlying:latest .
 docker build --target dxfeed-publish-timeandsale -t redpanda-dxfeed-financial-data/dxfeed-publish-timeandsale:latest .
 docker build --target dxfeed-publish-series -t redpanda-dxfeed-financial-data/dxfeed-publish-series:latest .
-docker-compose up
+docker compose up

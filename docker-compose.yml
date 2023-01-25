@@ -22,7 +22,7 @@ services:
       - 29092:29092
 
   deephaven:
-    image: redpanda-dxfeed-financial-data/dx-server
+    image: redpanda-dxfeed-financial-data/dx-server:latest
     environment:
       - START_OPTS=-Xmx12g -Ddeephaven.application.dir=/data/app.d
     depends_on:

@@ -1,6 +1,6 @@
 FROM ghcr.io/deephaven/server:${VERSION:-latest} AS dx-server
 COPY data/app.d /app.d
-COPY data/layouts /data/layouts
+COPY data/storage/layouts /data/layouts
 
 FROM python:3.8 AS dxfeed-publish-all
 COPY dxfeed/requirements.txt .
