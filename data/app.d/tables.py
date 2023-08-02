@@ -13,33 +13,33 @@ trades = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Trade', key_spec=
     ('DayVolume',    dht.int_),
     ('DayTurnover',  dht.int_),
     ('Direction',    dht.int_),
-    ('Timestamp',    dht.DateTime),
+    ('Timestamp',    dht.Instant),
     ('RawFlags',  dht.int_),
     ('IsETH',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 quotes = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Quote', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol', dht.string),
     ('Sequence',   dht.int_),
-    ('Timestamp',  dht.DateTime),
-    ('BidTime',   dht.DateTime),
+    ('Timestamp',  dht.Instant),
+    ('BidTime',   dht.Instant),
     ('BidExchangeCode', dht.string),
     ('BidPrice',   dht.double),
     ('BidSize',  dht.int_),
-    ('AskTime',    dht.DateTime),
+    ('AskTime',    dht.Instant),
     ('AskExchangeCode',  dht.string),
     ('AskPrice',    dht.double),
     ('AskSize',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 
 candle = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Candle', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol', dht.string),
     ('EventFlags',   dht.int_),
     ('Index',  dht.int64),
-    ('Timestamp',   dht.DateTime),
+    ('Timestamp',   dht.Instant),
     ('Sequence', dht.int_),
     ('Count',   dht.int_),
     ('Open',  dht.double),
@@ -69,14 +69,14 @@ profile = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Profile', key_sp
     ('FreeFloat',    dht.string),
     ('HighLimitPrice',    dht.double),
     ('LowLimitPrice',    dht.double),
-    ('HaltStartTime',  dht.DateTime),
-    ('HaltEndTime',    dht.DateTime),
+    ('HaltStartTime',  dht.Instant),
+    ('HaltEndTime',    dht.Instant),
     ('Description',    dht.string),
     ('RawFlags',    dht.int_),
     ('StatusReason',    dht.string),
     ('TradingStatus',    dht.int_),
     ('ShortSaleRestriction',    dht.int_)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 
 summary = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Summary', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
@@ -95,13 +95,13 @@ summary = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Summary', key_sp
     ('DayClosePriceType',    dht.int_),
     ('PrevDayClosePriceType',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 order = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Order', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Timestamp',    dht.DateTime),
+    ('Timestamp',    dht.Instant),
     ('Sequence',    dht.int_),
     ('Price',    dht.double),
     ('Size',    dht.int_),
@@ -112,7 +112,7 @@ order = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Order', key_spec=K
     ('Source',    dht.string),
     ('MarketMaker',    dht.string),
     ('SpreadSymbol',    dht.string)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 underlying = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Underlying', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol',    dht.string),
@@ -120,13 +120,13 @@ underlying = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Underlying', 
     ('FrontVolatility',    dht.double),
     ('BackVolatility',    dht.double),
     ('PutCallRatio',    dht.double)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 timeAndSale = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Timestamp',    dht.DateTime),
+    ('Timestamp',    dht.Instant),
     ('ExchangeCode',    dht.string),
     ('Price',    dht.double),
     ('Size',    dht.double),
@@ -143,14 +143,14 @@ timeAndSale = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale'
     ('TradeThroughExempt',    dht.int_),
     ('IsSpreadLeg',    dht.int_),
     ('Scope',    dht.int_)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 
 series = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Series', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
-    ('Timestamp',    dht.DateTime),
+    ('Timestamp',    dht.Instant),
     ('Sequence',    dht.int_),
     ('Expiration',    dht.int_),
     ('Volatility',    dht.double),
@@ -158,7 +158,7 @@ series = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Series', key_spec
     ('ForwardPrice',    dht.double),
     ('Dividend',    dht.double),
     ('Interest',    dht.double)
-    ]),table_type = TableType.Append).sort_descending(["KafkaOffset"])
+    ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 from deephaven import new_table
 from deephaven.column import string_col
