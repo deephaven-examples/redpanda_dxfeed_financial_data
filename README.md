@@ -1,13 +1,12 @@
 # redpanda_dxfeed_financial_data
 
-This repository publishes [dxFeed](https://dxfeed.com/) demo data to a Kafka [Redpanda](https://vectorized.io/) to stream. The Kafka stream is then consumed into Deephaven. Running `redpanda_start.sh` will create stock market tables on [http://localhost:10000/ide](http://localhost:10000/ide).
+This repository publishes [dxFeed](https://dxfeed.com/) demo data to a Kafka [Redpanda](https://vectorized.io/) to stream. The Kafka stream is then consumed into Deephaven. Running `redpanda_start.sh` will create stock market tables on [http://localhost:10000/ide](http://localhost:10000/ide). Note that the Deephaven's default authentication (pre-shared key). For more information on using pre-shared key authentication and setting your own key, see [How to configure and use pre-shared key authentication](https://deephaven.io/core/docs/how-to-guides/authentication/auth-psk/).
 
 ## How it works
 
 ### Deephaven application mode
 
 This app runs using [Deephaven's application mode](https://deephaven.io/core/docs/how-to-guides/app-mode/).
-
 
 ### Components
 

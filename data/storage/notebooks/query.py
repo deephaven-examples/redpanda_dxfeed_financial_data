@@ -11,4 +11,4 @@ agg_list = [
 aggs = quotes.agg_by(agg_list,\
     ["Symbol", "BidExchangeCode", "BidTime", "AskTime"])
 
-related_quotes = trades.aj(quotes, ["Symbol, Timestamp = BidTime"], ["BidTime, BidPrice, BidSize"])
+related_quotes = trades.aj(quotes, ["Symbol, Timestamp >= BidTime"], ["BidTime, BidPrice, BidSize"])

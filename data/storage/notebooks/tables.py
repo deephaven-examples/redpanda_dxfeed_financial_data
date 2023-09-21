@@ -122,7 +122,7 @@ underlying = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Underlying', 
     ('PutCallRatio',    dht.double)
     ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
-timeAndSale = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
+time_and_sale = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'TimeAndSale', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol',    dht.string),
     ('EventFlags',    dht.int_),
     ('Index',    dht.int64),
