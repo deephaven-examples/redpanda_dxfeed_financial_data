@@ -4,19 +4,19 @@ from deephaven import dtypes as dht
 
 trades = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Trade', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
     ('Symbol', dht.string),
-    ('Sequence',   dht.int_),
+    ('Sequence',   dht.int64),
     ('Price',  dht.double),
     ('ExchangeCode',   dht.string),
-    ('Size', dht.int_),
-    ('Tick',   dht.int_),
+    ('Size', dht.int64),
+    ('Tick',   dht.int64),
     ('Change',  dht.double),
-    ('DayVolume',    dht.int_),
-    ('DayTurnover',  dht.int_),
-    ('Direction',    dht.int_),
+    ('DayVolume',    dht.int64),
+    ('DayTurnover',  dht.int64),
+    ('Direction',    dht.int64),
     ('Timestamp',    dht.Instant),
-    ('RawFlags',  dht.int_),
-    ('IsETH',    dht.int_),
-    ('Scope',    dht.int_)
+    ('RawFlags',  dht.int64),
+    ('IsETH',    dht.int64),
+    ('Scope',    dht.int64)
     ]),table_type = TableType.append()).sort_descending(["KafkaOffset"])
 
 quotes = ck.consume({'bootstrap.servers': 'redpanda:29092'} , 'Quote', key_spec=KeyValueSpec.IGNORE, value_spec=ck.json_spec([
